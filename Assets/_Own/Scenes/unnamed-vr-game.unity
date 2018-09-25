@@ -521,7 +521,6 @@ MonoBehaviour:
   - {fileID: 1514433914}
   flockGoal: {fileID: 0}
   validClusters: []
-  isSpawner: 0
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &185295064
 Transform:
@@ -1381,7 +1380,6 @@ MonoBehaviour:
   - {fileID: 1560315722}
   flockGoal: {fileID: 0}
   validClusters: []
-  isSpawner: 0
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &533763384
 Transform:
@@ -1576,7 +1574,6 @@ MonoBehaviour:
   flockGoal: {fileID: 0}
   validClusters:
   - {fileID: 1329110180}
-  isSpawner: 0
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &617188184
 Transform:
@@ -1671,7 +1668,6 @@ MonoBehaviour:
   validClusters:
   - {fileID: 617188183}
   - {fileID: 779363500}
-  isSpawner: 1
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &645761729
 Transform:
@@ -1954,7 +1950,6 @@ MonoBehaviour:
   flockGoal: {fileID: 0}
   validClusters:
   - {fileID: 533763383}
-  isSpawner: 0
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &779363501
 Transform:
@@ -2646,7 +2641,6 @@ MonoBehaviour:
   validClusters:
   - {fileID: 779363500}
   - {fileID: 1077353669}
-  isSpawner: 1
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &1051497117
 Transform:
@@ -2711,7 +2705,6 @@ MonoBehaviour:
   flockGoal: {fileID: 0}
   validClusters:
   - {fileID: 185295063}
-  isSpawner: 0
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &1077353670
 Transform:
@@ -3082,50 +3075,6 @@ Transform:
   m_Father: {fileID: 1329110181}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1204945146
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1204945147}
-  - component: {fileID: 1204945148}
-  m_Layer: 0
-  m_Name: DroneSpawner (right)
-  m_TagString: Spawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1204945147
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1204945146}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12, y: 2, z: -12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1958006813}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1204945148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1204945146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ae243c18252114a9de847c355717f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  maxInstances: 5
-  children: {fileID: 0}
-  childList: []
 --- !u!1 &1209547024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3392,7 +3341,6 @@ MonoBehaviour:
   - {fileID: 1267312001}
   flockGoal: {fileID: 0}
   validClusters: []
-  isSpawner: 0
   lineColor: {r: 0, g: 1, b: 0.9452326, a: 1}
 --- !u!4 &1329110181
 Transform:
@@ -3980,50 +3928,6 @@ Transform:
   m_Father: {fileID: 1329110181}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1649002411
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1649002412}
-  - component: {fileID: 1649002413}
-  m_Layer: 0
-  m_Name: DroneSpawner (left)
-  m_TagString: Spawner
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1649002412
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1649002411}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 2, z: 12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1958006813}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1649002413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1649002411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ae243c18252114a9de847c355717f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  maxInstances: 5
-  children: {fileID: 0}
-  childList: []
 --- !u!1001 &1666263124
 Prefab:
   m_ObjectHideFlags: 0
@@ -4455,8 +4359,6 @@ Transform:
   - {fileID: 26825948}
   - {fileID: 508384599}
   - {fileID: 1751983416}
-  - {fileID: 1649002412}
-  - {fileID: 1204945147}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4503,7 +4405,7 @@ GameObject:
   - component: {fileID: 1999228294}
   - component: {fileID: 1999228293}
   m_Layer: 0
-  m_Name: AIManager
+  m_Name: SpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4517,9 +4419,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1999228292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b066396c41d4140a8c66e21d68458d, type: 3}
+  m_Script: {fileID: 11500000, guid: 78d9b2a0f62d7ae45bc0c054a59a380e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawner:
+  - {fileID: 645761728}
+  - {fileID: 1051497116}
 --- !u!4 &1999228294
 Transform:
   m_ObjectHideFlags: 0

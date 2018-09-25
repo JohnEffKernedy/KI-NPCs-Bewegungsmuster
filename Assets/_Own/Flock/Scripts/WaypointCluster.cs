@@ -10,16 +10,11 @@ public class WaypointCluster : MonoBehaviour {
 
     public List<WaypointCluster> validClusters;
 
-    public bool isSpawner = false;
-
     public Color lineColor = Color.cyan;
 
     // Use this for initialization
     void Start () {
-        if(isSpawner)
-        {
-            InvokeRepeating("spawnFlockGoal", 5, 60);
-        }
+    
     }
 	
 	// Update is called once per frame
@@ -27,12 +22,11 @@ public class WaypointCluster : MonoBehaviour {
         
 	}
 
-    private void spawnFlockGoal()
+    public void spawnFlockGoal()
     {
         int index = Random.Range(0, waypoints.Length);
         MoveOnPath mop = Instantiate(flockGoal, waypoints[index].position, Quaternion.identity);
         mop.currentCluster = this;
-
     }
     
     private void OnDrawGizmosSelected()
