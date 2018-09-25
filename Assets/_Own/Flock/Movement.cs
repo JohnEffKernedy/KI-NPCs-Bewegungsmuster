@@ -5,6 +5,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 
     SphereCollider col;
+    AudioSource flyAudio;
+    AudioSource attackAudio;
 
     // movement
     public float speed = 0.7f;
@@ -21,14 +23,14 @@ public class Movement : MonoBehaviour {
     public float speedChangeLikelihood = 1 / 200f;
     public float applyRulesLikelihood = 1 / 5f;
 
-
-
+    
     float rotationSpeed = 5.0f;
     Vector3 averageHeading;
     Vector3 averagePosition;
 
     bool attacking = false;
     bool turning = false;
+    bool playingAttackSound = false;
 
     public Vector3 goalPos;
     Flock flock;
@@ -43,7 +45,9 @@ public class Movement : MonoBehaviour {
         startTime = Time.time;
         flock = GetComponentInParent<Flock>();
         goalPos = flock.goalPos;
-	}
+        flyAudio = GetComponents<AudioSource>()[0];
+        attackAudio = GetComponents<AudioSource>()[1];
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -59,6 +63,7 @@ public class Movement : MonoBehaviour {
         {
             Vector3 directionOfPlayer = Camera.main.transform.position - transform.position;
             turnTo(directionOfPlayer);
+            playAttackingSound(playingAttackSound);
         }
 
         //randomly change speed
@@ -75,7 +80,13 @@ public class Movement : MonoBehaviour {
 	}
 
 
-
+    private void playAttackingSound(bool alreadyPlaying)
+    {
+        if (alreadyPlaying == false){
+            attackAudio.Play(0);
+            playingAttackSound = true;
+        }
+    }
 
     void ApplyRules ()
     {
