@@ -40,9 +40,12 @@ public class Movement : MonoBehaviour {
 
     float returnDist = 1.0f;
 
+    private Vector3 playerPos;
+
     // Use this for initialization
     void Start () {
         startTime = Time.time;
+        playerPos = Camera.main.transform.position;
         flock = GetComponentInParent<Flock>();
         goalPos = flock.goalPos;
         flyAudio = GetComponents<AudioSource>()[0];
@@ -52,23 +55,18 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         goalPos = flock.goalPos;
-        // fly towards player when within range
-        if (Vector3.Distance(this.transform.position, Camera.main.transform.position) < attackDistance)
-        {
-            attacking = true;
-        }
-        else attacking = false;
 
         if(attacking)
         {
             Vector3 directionOfPlayer = Camera.main.transform.position - transform.position;
             turnTo(directionOfPlayer);
-            playAttackingSound(playingAttackSound);
+            speed = 0;
         }
 
-        //randomly change speed
+        /* randomly change speed
         if (Random.Range(0f, 1f) < speedChangeLikelihood)
             speed = Random.Range(minSpeed, maxSpeed);
+        */
 
 
         //randomly apply rules if not attacking
@@ -76,13 +74,15 @@ public class Movement : MonoBehaviour {
             ApplyRules();
 
         float t = (Time.time - startTime / duration);
-        transform.Translate(0, 0, Time.deltaTime * Mathf.SmoothStep(acceleration, speed, t));
+
+        transform.Translate(0, 0, Time.deltaTime * speed);
+
 	}
 
 
-    private void playAttackingSound(bool alreadyPlaying)
+    private void playAttackingSound()
     {
-        if (alreadyPlaying == false){
+        if (playingAttackSound == false){
             attackAudio.Play(0);
             playingAttackSound = true;
         }
@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour {
     void ApplyRules ()
     {
         List<GameObject> gos;
-        gos = Flock.allEnemies;
+        gos = GetComponentInParent<Flock>().allEnemies;
 
         Vector3 vCentre = Vector3.zero;
         Vector3 vAvoid = Vector3.zero;
@@ -129,7 +129,8 @@ public class Movement : MonoBehaviour {
         if(groupSize > 0)
         {
             vCentre = vCentre / groupSize + (goalPos - this.transform.position);
-            speed = gSpeed / groupSize;
+
+            //speed = gSpeed / groupSize;
 
             Vector3 direction = (vCentre + vAvoid) - transform.position;
             turnTo(direction);
@@ -148,11 +149,37 @@ public class Movement : MonoBehaviour {
                                     rotationSpeed * Time.deltaTime);
     }
 
+    public void startAttack()
+    {
+        Debug.Log("starting Attack Coroutine");
+        StartCoroutine("Attack");
+    }
+
+    public IEnumerator Attack()
+    {
+        attacking = true;
+        Vector3 toPlayer = playerPos - transform.position;
+        Debug.Log("Starting Threat");
+        while (toPlayer.magnitude > 3)
+        {
+            toPlayer = playerPos - transform.position;
+            transform.position = transform.position + toPlayer * Time.deltaTime * 0.5f;
+            yield return null;
+        }
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Starting Attack");
+        playAttackingSound();
+        while (toPlayer.magnitude > 0.1)
+        {
+            transform.position = transform.position + toPlayer * Time.deltaTime * 1;
+            yield return null;
+        }
+    }
+
     // after hitting the player, tell flockmanager 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("MainCamera")) {
-            Debug.Log("Hit Player");
             flock.OnPlayerHit(gameObject);
         }
     }

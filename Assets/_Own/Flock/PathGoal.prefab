@@ -51,9 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec9c46f1d7221f47a7493364a235a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flock: {fileID: 114640776365229798, guid: 1a048fd69f365c74b9a74eca0f70272c, type: 2}
+  flockPrefab: {fileID: 114640776365229798, guid: 1a048fd69f365c74b9a74eca0f70272c,
+    type: 2}
   currentWaypointID: 0
   speed: 1.2
   reachDistance: 1
   rotationSpeed: 5
   pathName: 
+  currentCluster: {fileID: 0}

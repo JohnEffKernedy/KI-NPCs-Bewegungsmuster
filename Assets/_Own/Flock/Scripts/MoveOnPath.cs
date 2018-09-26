@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveOnPath : MonoBehaviour {
 
-    public Flock flock;
+    public Flock flockPrefab;
 
     public int currentWaypointID = 0;
     public float speed;
@@ -18,10 +18,12 @@ public class MoveOnPath : MonoBehaviour {
     public WaypointCluster currentCluster;
     Transform currentGoal;
 
+    private Flock flock;
+
 	// Use this for initialization
 	void Start ()
     {
-        Instantiate(flock, transform.position, Quaternion.identity, this.transform);
+        flock = Instantiate(flockPrefab, transform.position, Quaternion.identity, this.transform);
         Debug.Log(currentCluster);
         currentGoal = NextGoal();
 	}
@@ -49,7 +51,7 @@ public class MoveOnPath : MonoBehaviour {
         List<WaypointCluster> validClusters = currentCluster.validClusters;
         if(validClusters.Count == 0)
         {
-            Debug.Log("Keine weiteren Cluster");
+            flock.OnLastClusterReached();
             return null;
         }
         int index = Random.Range(0, validClusters.Count);

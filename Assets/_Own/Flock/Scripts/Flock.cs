@@ -7,7 +7,7 @@ public class Flock : MonoBehaviour {
     public GameObject enemyPrefab;
     public AudioSource explosion;
     
-    public static int roomSize = 3;
+    public static int roomSize = 2;
 
     public float minSpeed = 0.2f;
     public float maxSpeed = 1.5f;
@@ -19,7 +19,7 @@ public class Flock : MonoBehaviour {
     public float applyRulesLikelihood = 1 / 5f;
 
     static int numEnemies = 7;
-    public static List <GameObject> allEnemies = new List<GameObject>();
+    public List <GameObject> allEnemies = new List<GameObject>();
 
     public Transform pathGoal;
 
@@ -64,6 +64,20 @@ public class Flock : MonoBehaviour {
 	void Update () {
         goalPos = pathGoal.position;
 	}
+
+    public void OnLastClusterReached()
+    {
+        StartCoroutine("PlayAttackPattern");
+    }
+
+    IEnumerator PlayAttackPattern()
+    {
+        while (allEnemies.Count > 0)
+        {
+            allEnemies[0].GetComponent<Movement>().startAttack();
+            yield return new WaitForSeconds(1f);
+        }
+    }
 
     // when an enemy hits the player, destroy enemy and spawn another (for demo only)
     // to do: subtract hitpoints from player, respawn according to AI Director 
