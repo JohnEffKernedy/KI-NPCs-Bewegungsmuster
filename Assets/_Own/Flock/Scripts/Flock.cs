@@ -5,6 +5,7 @@ using UnityEngine;
 public class Flock : MonoBehaviour {
 
     public GameObject enemyPrefab;
+    public GameObject eye;
     public AudioSource explosion;
     
     public static int roomSize = 2;
@@ -75,6 +76,8 @@ public class Flock : MonoBehaviour {
         while (allEnemies.Count > 0)
         {
             allEnemies[0].GetComponent<Movement>().startAttack();
+            Renderer eye = allEnemies[0].transform.Find("eye").gameObject.GetComponent<Renderer>();   
+            eye.material.SetColor("_EmissionColor", Color.red);
             yield return new WaitForSeconds(1f);
         }
     }
