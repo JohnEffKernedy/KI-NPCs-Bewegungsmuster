@@ -5,6 +5,7 @@ using UnityEngine;
 public class Flock : MonoBehaviour {
 
     public GameObject enemyPrefab;
+    public AudioSource explosion;
     
     public static int roomSize = 3;
 
@@ -29,6 +30,7 @@ public class Flock : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        explosion = GetComponent<AudioSource>();
         pathGoal = gameObject.transform.parent;
         for (int i = 0; i < numEnemies; i++)
         {
@@ -67,6 +69,7 @@ public class Flock : MonoBehaviour {
     // to do: subtract hitpoints from player, respawn according to AI Director 
     public void OnPlayerHit(GameObject enemy)
     {
+        explosion.Play(0);
         allEnemies.Remove(enemy);
         GameObject.Destroy(enemy);
     }
