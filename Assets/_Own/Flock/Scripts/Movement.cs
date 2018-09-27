@@ -156,17 +156,22 @@ public class Movement : MonoBehaviour {
 
     public IEnumerator Attack()
     {
+        Renderer eye = transform.Find("eye").gameObject.GetComponent<Renderer>();
         attacking = true;
+        eye.material.SetColor("_EmissionColor", Color.red);
+
+        // Threat
         Vector3 toPlayer = playerPos - transform.position;
-        Debug.Log("Starting Threat");
         while (toPlayer.magnitude > 3)
         {
             toPlayer = playerPos - transform.position;
             transform.position = transform.position + toPlayer * Time.deltaTime * 0.5f;
             yield return null;
         }
+        eye.material.SetColor("_Color", Color.red);
         yield return new WaitForSeconds(1f);
-        Debug.Log("Starting Attack");
+        
+        // Attack
         playAttackingSound();
         while (toPlayer.magnitude > 0.1)
         {

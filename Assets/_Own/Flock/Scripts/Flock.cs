@@ -80,8 +80,6 @@ public class Flock : MonoBehaviour {
         while (allEnemies.Count > 0)
         {
             allEnemies[0].GetComponent<Movement>().startAttack();
-            Renderer eye = allEnemies[0].transform.Find("eye").gameObject.GetComponent<Renderer>();   
-            eye.material.SetColor("_EmissionColor", Color.red);
             yield return new WaitForSeconds(1f);
         }
         yield return new WaitForSeconds(3f);
