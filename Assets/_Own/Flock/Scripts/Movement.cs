@@ -48,8 +48,7 @@ public class Movement : MonoBehaviour {
         playerPos = Camera.main.transform.position;
         flock = GetComponentInParent<Flock>();
         goalPos = flock.goalPos;
-        flyAudio = GetComponents<AudioSource>()[0];
-        attackAudio = GetComponents<AudioSource>()[1];
+        attackAudio = GetComponents<AudioSource>()[0];
     }
 	
 	// Update is called once per frame

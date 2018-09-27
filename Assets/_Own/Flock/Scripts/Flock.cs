@@ -7,6 +7,7 @@ public class Flock : MonoBehaviour {
     public GameObject enemyPrefab;
     public GameObject eye;
     public AudioSource explosion;
+    public AudioSource flyAudio;
     
     public static int roomSize = 2;
 
@@ -31,7 +32,10 @@ public class Flock : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        explosion = GetComponent<AudioSource>();
+        explosion = GetComponents<AudioSource>()[0];
+        flyAudio = GetComponents<AudioSource>()[1];
+        flyAudio.pitch *= Random.Range(0.9f, 1.1f);
+        
         pathGoal = gameObject.transform.parent;
         for (int i = 0; i < numEnemies; i++)
         {
@@ -80,6 +84,8 @@ public class Flock : MonoBehaviour {
             eye.material.SetColor("_EmissionColor", Color.red);
             yield return new WaitForSeconds(1f);
         }
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 
     // when an enemy hits the player, destroy enemy and spawn another (for demo only)
