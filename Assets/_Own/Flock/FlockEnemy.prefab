@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 82543882614278710}
   - component: {fileID: 82122464950080036}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: FlockEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
