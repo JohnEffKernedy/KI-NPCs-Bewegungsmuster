@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4759895153242988}
   - component: {fileID: 114640776365229798}
   - component: {fileID: 82459862698254728}
-  - component: {fileID: 82270692402302836}
+  - component: {fileID: 82291730379529776}
   m_Layer: 0
   m_Name: FlockManager
   m_TagString: Flock
@@ -42,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82270692402302836
+--- !u!82 &82291730379529776
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,7 +59,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 164
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -97,7 +97,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.556
       inSlope: 0
       outSlope: 0
       tangentMode: 0
