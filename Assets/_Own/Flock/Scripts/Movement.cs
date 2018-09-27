@@ -5,8 +5,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 
     SphereCollider col;
-    AudioSource flyAudio;
     AudioSource attackAudio;
+    AudioSource lightOnAudio;
 
     // movement
     public float speed = 0.7f;
@@ -31,6 +31,7 @@ public class Movement : MonoBehaviour {
     bool attacking = false;
     bool turning = false;
     bool playingAttackSound = false;
+    bool playingLightOnSound = false;
 
     public Vector3 goalPos;
     Flock flock;
@@ -49,6 +50,7 @@ public class Movement : MonoBehaviour {
         flock = GetComponentInParent<Flock>();
         goalPos = flock.goalPos;
         attackAudio = GetComponents<AudioSource>()[0];
+        lightOnAudio = GetComponents<AudioSource>()[1];
     }
 	
 	// Update is called once per frame
@@ -84,6 +86,15 @@ public class Movement : MonoBehaviour {
         if (playingAttackSound == false){
             attackAudio.Play(0);
             playingAttackSound = true;
+        }
+    }
+
+    private void playLightOnSound()
+    {
+        if (playingLightOnSound == false)
+        {
+            lightOnAudio.Play(0);
+            playingLightOnSound = true;
         }
     }
 
@@ -169,10 +180,11 @@ public class Movement : MonoBehaviour {
             yield return null;
         }
         eye.material.SetColor("_Color", Color.red);
+        playLightOnSound();
+        playAttackingSound();
         yield return new WaitForSeconds(1f);
         
         // Attack
-        playAttackingSound();
         while (toPlayer.magnitude > 0.1)
         {
             transform.position = transform.position + toPlayer * Time.deltaTime * 1;
