@@ -97,7 +97,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -252,10 +252,8 @@ MonoBehaviour:
   maxSpeed: 3.13
   groupDistance: 4
   avoidDistance: 2
-  attackDstance: 5
-  speedChangeLikelihood: 0.016666668
   applyRulesLikelihood: 0.2
+  numEnemies: 7
   allEnemies: []
   pathGoal: {fileID: 0}
   goalPos: {x: 0, y: 0, z: 0}
-  inactivityTimer: 30
