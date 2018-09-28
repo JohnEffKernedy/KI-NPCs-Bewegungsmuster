@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 
-    SphereCollider col;
     AudioSource attackAudio;
     AudioSource lightOnAudio;
 
@@ -12,40 +11,30 @@ public class Movement : MonoBehaviour {
     public float speed = 0.7f;
     float minSpeed = 0.2f;
     float maxSpeed = 1.2f;
-    float acceleration = 0f;
-    public float attackDistance = 5f;
+    float rotationSpeed = 5.0f;
 
     // flocking
     public float groupDistance = 2.0f;
     public float avoidDistance = 0.3f;
 
     // predictability
-    public float speedChangeLikelihood = 1 / 200f;
     public float applyRulesLikelihood = 1 / 5f;
 
-    
-    float rotationSpeed = 5.0f;
-    Vector3 averageHeading;
-    Vector3 averagePosition;
-
+    // booleans
     bool attacking = false;
     bool turning = false;
     bool playingAttackSound = false;
     bool playingLightOnSound = false;
 
-    public Vector3 goalPos;
+    
+    private Vector3 goalPos;
+    private Vector3 playerPos;
     Flock flock;
 
-    float startTime;
-    float duration = 3.0f;
-
-    float returnDist = 1.0f;
-
-    private Vector3 playerPos;
+    
 
     // Use this for initialization
     void Start () {
-        startTime = Time.time;
         playerPos = Camera.main.transform.position;
         flock = GetComponentInParent<Flock>();
         goalPos = flock.goalPos;
@@ -61,19 +50,14 @@ public class Movement : MonoBehaviour {
         {
             Vector3 directionOfPlayer = Camera.main.transform.position - transform.position;
             turnTo(directionOfPlayer);
-            speed = 0;
         }
 
         //from time to time apply rules if not attacking
         if(Random.Range(0f, 1f) < applyRulesLikelihood && !attacking)
             ApplyRules();
 
-        float t = (Time.time - startTime / duration);
-
         transform.Translate(0, 0, Time.deltaTime * speed);
-
 	}
-
 
     private void playAttackingSound()
     {
@@ -94,17 +78,12 @@ public class Movement : MonoBehaviour {
 
     void ApplyRules ()
     {
-        List<GameObject> gos;
-        gos = GetComponentInParent<Flock>().allEnemies;
+        List<GameObject> gos = GetComponentInParent<Flock>().allEnemies; ;
 
         Vector3 vCentre = Vector3.zero;
         Vector3 vAvoid = Vector3.zero;
-        float gSpeed = 0.1f;
-
         float dist;
-
         int groupSize = 0;
-
 
         // when other enemies are within group forming range, collect their positions and speed to calculate the average
         // and adjust the avoid vector for neighbours within avoid distance
@@ -124,18 +103,14 @@ public class Movement : MonoBehaviour {
                     }
 
                     Movement neighbour = go.GetComponent<Movement>();
-                    gSpeed = gSpeed + neighbour.speed;
                 }
             }
         }
 
-        // when in a group, find average speed/position and position of player and correct direction and speed accordingly
+        // when in a group, find average position and position of goal and correct direction and speed accordingly
         if(groupSize > 0)
         {
             vCentre = vCentre / groupSize + (goalPos - this.transform.position);
-
-            //speed = gSpeed / groupSize;
-
             Vector3 direction = (vCentre + vAvoid) - transform.position;
             turnTo(direction);
         }
@@ -155,13 +130,13 @@ public class Movement : MonoBehaviour {
 
     public void startAttack()
     {
-        Debug.Log("starting Attack Coroutine");
         StartCoroutine("Attack");
     }
 
     public IEnumerator Attack()
     {
         Renderer eye = transform.Find("eye").gameObject.GetComponent<Renderer>();
+        speed = 0;
         attacking = true;
         eye.material.SetColor("_EmissionColor", new Color(1f, 0.5f, 0.1f));
         eye.material.SetColor("_Color", new Color(1f, 0.5f, 0.1f));
@@ -222,11 +197,6 @@ public class Movement : MonoBehaviour {
     public void setApplyRulesLikelihood (float applyRulesLikelihood)
     {
         this.applyRulesLikelihood = applyRulesLikelihood;
-    }
-
-    public void setAttackDistance(float attackDistance)
-    {
-        this.attackDistance = attackDistance;
     }
 
 }

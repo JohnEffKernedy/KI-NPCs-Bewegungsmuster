@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        // for demo purposes, spawn rates should be set from AI Manager
         InvokeRepeating("ActivateRandomSpawner", 2, 30);
     }
 	

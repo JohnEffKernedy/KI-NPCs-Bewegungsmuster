@@ -11,24 +11,20 @@ public class Flock : MonoBehaviour {
     
     public static int roomSize = 2;
 
+    // change from AI Director to influence flock behaviour for new spawns
     public float minSpeed = 0.2f;
     public float maxSpeed = 1.5f;
     public float groupDistance = 4.0f;
     public float avoidDistance = 2.0f;
-    public float attackDstance = 5f;
-
-    public float speedChangeLikelihood = 1 / 60f;
     public float applyRulesLikelihood = 1 / 5f;
 
-    static int numEnemies = 7;
+    // change from AI Director to increase/decrease pressure
+    public int numEnemies = 7;
+
     public List <GameObject> allEnemies = new List<GameObject>();
 
     public Transform pathGoal;
-
     public Vector3 goalPos;
-
-    bool playerActive = true;
-    public float inactivityTimer = 30;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +39,7 @@ public class Flock : MonoBehaviour {
         }
 	}
 
+    // should later be called from AI Manager if variables need to be changed before creating enemies
     GameObject createEnemy ()
     {
         Vector3 pos = new Vector3(transform.position.x + Random.Range(-roomSize, roomSize),
@@ -55,6 +52,7 @@ public class Flock : MonoBehaviour {
         return newEnemy;
     }
 
+    // setting up the flock enemy happens here to change behaviour of new spawns
     void setUpEnemy(Movement movement)
     {
         movement.setSpeed(Random.Range(minSpeed, maxSpeed));
@@ -85,7 +83,7 @@ public class Flock : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    // when an enemy hits the player, destroy enemy and spawn another (for demo only)
+    // when an enemy from the flock hits the player it is destroyed here
     // to do: subtract hitpoints from player, respawn according to AI Director 
     public void OnPlayerHit(GameObject enemy)
     {
