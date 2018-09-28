@@ -62,7 +62,6 @@ public class Flock : MonoBehaviour {
         movement.setGroupDistance(groupDistance);
         movement.setAvoidDistance(avoidDistance);
         movement.setApplyRulesLikelihood(applyRulesLikelihood);
-        movement.setSpeedChangeLikelihood(speedChangeLikelihood);
     }
 	
 	// Update is called once per frame

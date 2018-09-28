@@ -64,13 +64,7 @@ public class Movement : MonoBehaviour {
             speed = 0;
         }
 
-        /* randomly change speed
-        if (Random.Range(0f, 1f) < speedChangeLikelihood)
-            speed = Random.Range(minSpeed, maxSpeed);
-        */
-
-
-        //randomly apply rules if not attacking
+        //from time to time apply rules if not attacking
         if(Random.Range(0f, 1f) < applyRulesLikelihood && !attacking)
             ApplyRules();
 
@@ -169,7 +163,8 @@ public class Movement : MonoBehaviour {
     {
         Renderer eye = transform.Find("eye").gameObject.GetComponent<Renderer>();
         attacking = true;
-        eye.material.SetColor("_EmissionColor", Color.red);
+        eye.material.SetColor("_EmissionColor", new Color(1f, 0.5f, 0.1f));
+        eye.material.SetColor("_Color", new Color(1f, 0.5f, 0.1f));
 
         // Threat
         Vector3 toPlayer = playerPos - transform.position;
@@ -179,6 +174,7 @@ public class Movement : MonoBehaviour {
             transform.position = transform.position + toPlayer * Time.deltaTime * 0.5f;
             yield return null;
         }
+        eye.material.SetColor("_EmissionColor", Color.red);
         eye.material.SetColor("_Color", Color.red);
         playLightOnSound();
         playAttackingSound();
@@ -221,11 +217,6 @@ public class Movement : MonoBehaviour {
     public void setAvoidDistance(float avoidDistance)
     {
         this.avoidDistance = avoidDistance;
-    }
-
-    public void setSpeedChangeLikelihood (float speedChangeLikelihood)
-    {
-        this.speedChangeLikelihood = speedChangeLikelihood;
     }
 
     public void setApplyRulesLikelihood (float applyRulesLikelihood)
