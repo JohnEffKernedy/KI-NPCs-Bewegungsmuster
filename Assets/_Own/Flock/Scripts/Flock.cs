@@ -17,9 +17,11 @@ public class Flock : MonoBehaviour {
     public float groupDistance = 4.0f;
     public float avoidDistance = 2.0f;
     public float applyRulesLikelihood = 1 / 5f;
+    public float pauseTime = 1.0f;
 
     // change from AI Director to increase/decrease pressure
     public int numEnemies = 7;
+    public float attackInterval = 1.0f;
 
     public List <GameObject> allEnemies = new List<GameObject>();
 
@@ -52,7 +54,7 @@ public class Flock : MonoBehaviour {
         return newEnemy;
     }
 
-    // setting up the flock enemy happens here to change behaviour of new spawns
+    // setting up the flock enemy happens here to change behaviour of new or existing spawns
     void setUpEnemy(Movement movement)
     {
         movement.setSpeed(Random.Range(minSpeed, maxSpeed));
@@ -60,6 +62,7 @@ public class Flock : MonoBehaviour {
         movement.setGroupDistance(groupDistance);
         movement.setAvoidDistance(avoidDistance);
         movement.setApplyRulesLikelihood(applyRulesLikelihood);
+        movement.setPauseTime(pauseTime);
     }
 	
 	// Update is called once per frame
@@ -77,8 +80,9 @@ public class Flock : MonoBehaviour {
         while (allEnemies.Count > 0)
         {
             allEnemies[0].GetComponent<Movement>().startAttack();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(attackInterval);
         }
+        // after all spawns are destroyed leave time to play sounds then destroy flockmanager 
         yield return new WaitForSeconds(3f);
         Destroy(gameObject);
     }

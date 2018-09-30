@@ -48,6 +48,7 @@ public class MoveOnPath : MonoBehaviour {
 
     private Transform NextGoal()
     {
+        // choose random cluster from valid following clusters, then random waypoint from that cluster to fly to
         List<WaypointCluster> validClusters = currentCluster.validClusters;
         if(validClusters.Count == 0)
         {

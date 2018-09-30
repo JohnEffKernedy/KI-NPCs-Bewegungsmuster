@@ -13,6 +13,9 @@ public class Movement : MonoBehaviour {
     float maxSpeed = 1.2f;
     float rotationSpeed = 5.0f;
 
+    // Attack
+    float pauseTime = 1.0f;
+
     // flocking
     public float groupDistance = 2.0f;
     public float avoidDistance = 0.3f;
@@ -31,7 +34,9 @@ public class Movement : MonoBehaviour {
     private Vector3 playerPos;
     Flock flock;
 
-    
+    // eye
+    public Color warningColor = new Color(1f, 0.5f, 0.1f);
+    public Color attackColor = Color.red;
 
     // Use this for initialization
     void Start () {
@@ -138,8 +143,8 @@ public class Movement : MonoBehaviour {
         Renderer eye = transform.Find("eye").gameObject.GetComponent<Renderer>();
         speed = 0;
         attacking = true;
-        eye.material.SetColor("_EmissionColor", new Color(1f, 0.5f, 0.1f));
-        eye.material.SetColor("_Color", new Color(1f, 0.5f, 0.1f));
+        eye.material.SetColor("_EmissionColor", warningColor);
+        eye.material.SetColor("_Color", warningColor);
 
         // Threat
         Vector3 toPlayer = playerPos - transform.position;
@@ -149,11 +154,11 @@ public class Movement : MonoBehaviour {
             transform.position = transform.position + toPlayer * Time.deltaTime * 0.5f;
             yield return null;
         }
-        eye.material.SetColor("_EmissionColor", Color.red);
-        eye.material.SetColor("_Color", Color.red);
+        eye.material.SetColor("_EmissionColor", attackColor);
+        eye.material.SetColor("_Color", attackColor);
         playLightOnSound();
         playAttackingSound();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(pauseTime);
         
         // Attack
         while (toPlayer.magnitude > 0.1)
@@ -197,6 +202,11 @@ public class Movement : MonoBehaviour {
     public void setApplyRulesLikelihood (float applyRulesLikelihood)
     {
         this.applyRulesLikelihood = applyRulesLikelihood;
+    }
+
+    public void setPauseTime(float pauseTime)
+    {
+        this.pauseTime = pauseTime;
     }
 
 }
